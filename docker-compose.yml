@@ -1,0 +1,62 @@
+version: "3.7"
+services:
+  backend:
+    build: ./backend
+    tty: true
+    volumes:
+      - ./backend:/var/www/laravel
+    ports:
+      - '8000:8000'
+    env_file:
+      - ./backend/.env
+  mysql:
+    image: mysql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - '8101:3306'
+    env_file:
+      - .env.local
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - /var/lib/mysql
+  phpmyadmin:
+    platform: linux/amd64
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_ARBITRARY: 1
+      restart: always
+    ports:
+      - "3400:80"
+    depends_on:
+      - mysql
+  frontend:
+    build: ./frontend
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+      - CHOKIDAR_USEPOLLING=true
+    volumes:
+      - ./frontend:/usr/src/app
+    command: sh -c 'npm install && npm run dev'
+    ports:
+      - '3000:3000'
+    tty: true
+  nginx:
+    build:
+      context: ./nginx/
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    tty: true
+    restart: always
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
