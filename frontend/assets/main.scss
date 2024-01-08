@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    background: #f6f5e8;
+    margin: 0 !important;
+}
+
+.v-avatar{
+    border-radius: 0% !important;
+    padding-left: 7px !important;
+}
+
+.error_text{
+    font-size: 12px;
+    margin-top: 7px;
+    color: #B00020;
+    padding-left: 16px;
+    font-family: "Roboto", sans-serif;
+}
+.v-main{
+    --v-layout-left: 56px !important;
+}
+
