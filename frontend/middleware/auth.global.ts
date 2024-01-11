@@ -15,13 +15,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
         authenticated.value = true; // update the state to authenticated
     }else{
         authenticated.value = false;
+        localStorage.removeItem('access_token')
     }
 
     if (token && to?.name === 'login') {
         return navigateTo('/');
     }
 
-    if(token == undefined && to.path.startsWith("/admin")){
+    if(!token && to.path.startsWith("/admin")){
         abortNavigation();
         return navigateTo('/login');
     }

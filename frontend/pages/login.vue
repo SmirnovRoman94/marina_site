@@ -14,7 +14,7 @@
           :rules="passwordRules"
           required
       ></v-text-field>
-      <v-btn type="submit" block class="mt-2">Submit</v-btn>
+      <v-btn type="submit" block class="mt-2">Войти</v-btn>
     </v-form>
     <div class="mt-5">
       <v-btn color="primary">
