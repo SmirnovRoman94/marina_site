@@ -7,10 +7,7 @@ use App\Http\Requests\Post\PostStoreRequest;
 use App\Http\Requests\Post\PostUpdateRequest;
 use App\Http\Resources\Post\PostResource;
 use App\Models\Post;
-use App\Models\ProductCard;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Validation\Validator;
+
 
 class PostController extends Controller
 {
@@ -41,7 +38,6 @@ class PostController extends Controller
             'title' => $data['title'],
             'preview' => $data['preview']
         ]);
-
         // Прикрепляем изображение
         if ($request->hasFile('img')) {
             $imagePath = $request->file('img')->path();

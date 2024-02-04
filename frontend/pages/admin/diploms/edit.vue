@@ -21,7 +21,7 @@
               <v-img class="align-end text-white" height="400" width="100%" object-cover  :src="diplom.image" cover/>
             </div>
             <div class="mt-5">
-              <v-file-input label="Новая картинка" variant="underlined" multiple  accept="image/*" v-model="image"></v-file-input>
+              <v-file-input label="Новая картинка" variant="underlined" multiple  accept="image/*" v-model="image" @update:modelValue="change"></v-file-input>
             </div>
             <div class="my-5 flex justify-end">
               <v-btn type="submit"  class="mr-2" color="primary">Сохранить</v-btn>
@@ -57,6 +57,17 @@ onMounted(async() => {
         Object.assign(diplom, res.data.data)
       })
 });
+
+function change(){
+  let file = image.value !== null ? image.value[0] : null;
+  if (file.size >= 5 * 1024 * 1024) {
+    // Размер файла превышает 2 мегабайта
+    snackbar.add({type: 'warning', text: 'Размер файла не превышает 5 мегабайт' });
+    setTimeout(() => {
+      image.value = null;
+    },1000);
+  }
+}
 
 //SAVING
 const form = ref(null);

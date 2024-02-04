@@ -16,7 +16,7 @@ export const useServicesStore = defineStore('servicesStore', {
     actions: {
         async GET_SERVICES() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/auth/services')
+            await useNuxtApp().$axios.get('/api/services')
                 .then(function(res) {
                   vm.services = res.data;
                 })
@@ -38,7 +38,7 @@ export const useServicesStore = defineStore('servicesStore', {
         },
 
         async GET_SERVICE_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/auth/services/${id}`)
+            return await useNuxtApp().$axios.get(`/api/services/${id}`)
         },
 
         async UPDATE_SERVICE({data, file}){

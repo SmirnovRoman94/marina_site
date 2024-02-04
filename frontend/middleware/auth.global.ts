@@ -5,17 +5,25 @@ import { useAuthStore } from '../store/auth';
 export default defineNuxtRouteMiddleware((to, from) => {
     if (process.server) return;
 
-    const { authenticated } = storeToRefs(useAuthStore());
-    // let token = localStorage.access_token;
+    const { authenticated, isAdmin } = storeToRefs(useAuthStore());
+    let admin = localStorage.role;
     let token = checkTokenInCookie();
 
     console.log(token, authenticated.value, to ,from);
 
     if (token) {
         authenticated.value = true; // update the state to authenticated
+        if(admin == 1){
+            isAdmin.value = 1
+        }
     }else{
         authenticated.value = false;
+        isAdmin.value = 0;
         localStorage.removeItem('access_token')
+        localStorage.removeItem('role');
+        if (window.location.pathname !== '/') {
+            window.location.pathname = '/';
+        }
     }
 
     if (token && to?.name === 'login') {
@@ -27,10 +35,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
         return navigateTo('/login');
     }
 
-    // if ((token == undefined && to?.name == 'admin') || (token == undefined && to?.name == 'admin/private')) {
-    //     abortNavigation();
-    //     return navigateTo('/login');
-    // }
+
 
 });
 

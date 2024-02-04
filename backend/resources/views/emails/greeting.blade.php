@@ -2,56 +2,25 @@
 <html>
 <head>
     <title>Промокод на первую консультацуию</title>
-    <style>
-        body{
+    <style lang="css">
+        .body{
             background-color: #f6f5e8;
+            background-image: url('storage/images/back.png');
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: top;
         }
         h3{
             color: #50735F;
             text-transform: uppercase;
             font-weight: 200;
         }
-        .img_title{
-            display: flex;
-            flex-direction: column;
-            width: 60%;
-            margin: 20px auto 0 auto;
-            max-height: 250px;
-        }
-        .leaf{
-            right: 0;
-            position: absolute;
-            top: 20%;
-        }
-        .donat {
-            right: 15%;
-            position: absolute;
-            top: 80%;
-        }
-        .char{
-            left: 5%;
-            position: absolute;
-            top: 10%;
-        }
-        .tyl{
-            left: 10%;
-            position: absolute;
-            top: 90%;
-        }
-        .latest{
-            width: 20%;
-            position: absolute;
-            top: 20px;
-            z-index: 10;
-        }
-        .img{
-            position: relative;
-            top: 20%;
-        }
         .content{
             width: 60%;
             margin: 0 auto;
-            margin-top: 7%;
+            margin-top: 30%;
+            max-height: 500px;
             color: #50735F;
             text-align: justify;
             padding-bottom: 20px;
@@ -62,20 +31,23 @@
         .contacts{
             text-decoration: underline;
         }
+        @media screen and (max-width: 600px) {
+            .content {
+                margin-top: 10% !important;
+                font-size: 10px;
+                width: 80%;
+            }
+            h3{
+                font-size: 12px;
+            }
+        }
+
+
     </style>
 </head>
-<body>
-<div class="img_title">
-    <img src="storage/images/ourlatest.svg" class="latest">
-    <img src="storage/images/Girls.png" class="img">
-</div>
-<img src="storage/images/leaf_1.svg" class="leaf">
-<img src="storage/images/Group_2073.svg" class="char">
-<img src="storage/images/Group_2091.svg" class="donat">
-<img src="storage/images/Group_2092.svg" class="tyl">
-
+<body class="body">
 <div class="content">
-    <h1>Уважаемый(-ая) {{$name}},</h1>
+    <h1>Уважаемый(-ая) $name,</h1>
 
     <p>Я хотела бы выразить искреннюю благодарность за то, что выбрали меня в качестве вашего психолога. Ваше доверие и предпочтение означают много для меня, и я ценю возможность работать с вами.</p>
 

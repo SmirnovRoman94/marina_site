@@ -36,7 +36,7 @@
           <NuxtLink to="/public">
             <v-list-item prepend-icon="mdi-post-outline" title="Блог" value="faq"></v-list-item>
           </NuxtLink>
-          <v-menu open-on-hover v-if="isAdmin === true">
+          <v-menu open-on-hover v-if="Authenticated === true && isAdmin == 1">
             <template v-slot:activator="{ props }">
               <v-list-item prepend-icon="mdi-security" title="Админка" value="admin" v-bind="props"></v-list-item>
             </template>
@@ -48,10 +48,13 @@
               </NuxtLink>
             </v-list>
           </v-menu>
-          <NuxtLink to="/login" v-if="isAdmin === false">
+          <NuxtLink to="/profile" v-if="Authenticated === true && isAdmin == 0">
+            <v-list-item prepend-icon="mdi-monitor-dashboard" title="Кабинет" value="profile"></v-list-item>
+          </NuxtLink>
+          <NuxtLink to="/login" v-if="Authenticated === false">
             <v-list-item prepend-icon="mdi-login" title="Войти" value="login"></v-list-item>
           </NuxtLink>
-          <v-list-item prepend-icon="mdi-logout" title="Выйти" value="logout" @click.stop="onLogoutClick" v-if="isAdmin == true"></v-list-item>
+          <v-list-item prepend-icon="mdi-logout" title="Выйти" value="logout" @click.stop="onLogoutClick" v-if="Authenticated === true"></v-list-item>
         </v-list>
       </v-navigation-drawer>
       <v-main class="mt-5 main">
@@ -70,8 +73,8 @@ import {useAuthStore} from "../store/auth";
 import {watch} from "vue";
 const storeAuth = useAuthStore();
 
-const isAdmin = computed(() => storeAuth.authenticated);
-
+const Authenticated = computed(() => storeAuth.authenticated);
+const isAdmin = computed(() => storeAuth.isAdmin);
 
 const { width } = useWindowSize();
 const drawer =  ref(true);

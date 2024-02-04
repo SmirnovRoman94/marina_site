@@ -24,7 +24,7 @@
 
   <img src="../assets/image/Group_2075.png" class="group">
   <img src="../assets/image/Group_2077.png" class="group_two">
-  <img src="../assets/image/UP.png" class="up">
+  <img src="../assets/image/Up.png" class="up">
 </v-footer>
 </template>
 

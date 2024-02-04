@@ -134,6 +134,7 @@
       <path value="$PROJECT_DIR$/backend/vendor/intervention/image" />
       <path value="$PROJECT_DIR$/backend/vendor/maennchen/zipstream-php" />
       <path value="$PROJECT_DIR$/backend/vendor/barryvdh/laravel-translation-manager" />
+      <path value="$PROJECT_DIR$/backend/vendor/carbonphp/carbon-doctrine-types" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1" />

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Inter&display=swap');
 
 body {
     background: #f6f5e8;
@@ -23,4 +24,5 @@ body {
 .v-main{
     --v-layout-left: 56px !important;
 }
+
 

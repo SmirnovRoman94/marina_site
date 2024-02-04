@@ -18,7 +18,7 @@
               ></v-text-field>
             </div>
             <div class="mt-0">
-              <v-file-input label="Диплом" variant="underlined" multiple :rules="[(v) => !!v || 'Поле Диплом обяательно для заполнения']" accept="image/*" v-model="image"></v-file-input>
+              <v-file-input label="Диплом" variant="underlined" multiple :rules="[(v) => !!v || 'Поле Диплом обяательно для заполнения']" accept="image/*" v-model="image" @update:modelValue="change"></v-file-input>
             </div>
             <div class="my-5 flex justify-end">
               <v-btn type="submit"  class="mr-2" color="primary">Сохранить</v-btn>
@@ -45,6 +45,17 @@ const diplom = reactive({
   title: null,
 });
 const image = ref(null);
+
+function change(){
+  let file = image.value !== null ? image.value[0] : null;
+  if (file.size >= 5 * 1024 * 1024) {
+    // Размер файла превышает 2 мегабайта
+    snackbar.add({type: 'warning', text: 'Размер файла не превышает 5 мегабайт' });
+    setTimeout(() => {
+      image.value = null;
+    },1000);
+  }
+}
 
 //SAVING
 const form = ref(null);

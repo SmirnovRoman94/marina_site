@@ -24,7 +24,7 @@ class MailController extends Controller
 
             public function build()
             {
-                return $this->subject('Пример электронного письма')
+                return $this->subject('Промокод на первую консультацуию')
                     ->view('emails.greeting');
             }
         };

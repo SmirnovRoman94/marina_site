@@ -26,7 +26,7 @@
             :rules="confirmRules"
             required
         ></v-text-field>
-        <v-btn type="submit" block class="mt-2">Submit</v-btn>
+        <v-btn type="submit" block class="mt-2 mb-1">Submit</v-btn>
       </v-form>
     </v-col>
   </v-row>

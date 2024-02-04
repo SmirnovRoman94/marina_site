@@ -25,32 +25,40 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::group(['middleware' => 'jwt.auth'], function (){
         Route::get('/user', [\App\Http\Controllers\User\UserController::class, 'index'])->name('user.index');
 
-        //POSTS
-        Route::post('/posts', [\App\Http\Controllers\Post\PostController::class, 'store'])->name('post.store');
-        Route::get('/posts', [\App\Http\Controllers\Post\PostController::class, 'index'])->name('post.index');
-        Route::get('/posts/{id}', [\App\Http\Controllers\Post\PostController::class, 'show'])->name('post.show');
-        Route::post('/posts/edit/{id}', [\App\Http\Controllers\Post\PostController::class, 'update'])->name('post.update');
-        Route::delete('/posts/{id}', [\App\Http\Controllers\Post\PostController::class, 'destroy'])->name('post.destroy');
+        Route::post('/comments', [\App\Http\Controllers\Comment\CommentController::class, 'store'])->name('comment.store');
 
-        //SERVICES
-        Route::post('/services', [\App\Http\Controllers\Service\ServiceController::class, 'store'])->name('services.store');
-        Route::get('/services', [\App\Http\Controllers\Service\ServiceController::class, 'index'])->name('services.index');
-        Route::get('/services/{id}', [\App\Http\Controllers\Service\ServiceController::class, 'show'])->name('services.show');
-        Route::delete('/services/{id}', [\App\Http\Controllers\Service\ServiceController::class, 'destroy'])->name('services.destroy');
-        Route::post('/services/edit/{id}', [\App\Http\Controllers\Service\ServiceController::class, 'update'])->name('services.update');
+        // Здесь находятся маршруты, доступные только для администраторов
+        Route::group(['middleware' => 'admin'], function () {
+            //ROSTS
+            Route::post('/posts', [\App\Http\Controllers\Post\PostController::class, 'store'])->name('post.store');
+            Route::post('/posts/edit/{id}', [\App\Http\Controllers\Post\PostController::class, 'update'])->name('post.update');
+            Route::delete('/posts/{id}', [\App\Http\Controllers\Post\PostController::class, 'destroy'])->name('post.destroy');
 
-        //DIPLOMS
-        Route::post('/diploms', [\App\Http\Controllers\Diplom\DiplomControler::class, 'store'])->name('diploms.store');
-        Route::get('/diploms', [\App\Http\Controllers\Diplom\DiplomControler::class, 'index'])->name('diploms.index');
-        Route::get('/diploms/{id}', [\App\Http\Controllers\Diplom\DiplomControler::class, 'show'])->name('diploms.show');
-        Route::delete('/diploms/{id}', [\App\Http\Controllers\Diplom\DiplomControler::class, 'destroy'])->name('diploms.destroy');
-        Route::post('/diploms/edit/{id}', [\App\Http\Controllers\Diplom\DiplomControler::class, 'update'])->name('diploms.update');
+            //SERVICES
+            Route::post('/services', [\App\Http\Controllers\Service\ServiceController::class, 'store'])->name('services.store');
+            Route::delete('/services/{id}', [\App\Http\Controllers\Service\ServiceController::class, 'destroy'])->name('services.destroy');
+            Route::post('/services/edit/{id}', [\App\Http\Controllers\Service\ServiceController::class, 'update'])->name('services.update');
 
+            //DIPLOMS
+            Route::post('/diploms', [\App\Http\Controllers\Diplom\DiplomControler::class, 'store'])->name('diploms.store');
+            Route::delete('/diploms/{id}', [\App\Http\Controllers\Diplom\DiplomControler::class, 'destroy'])->name('diploms.destroy');
+            Route::post('/diploms/edit/{id}', [\App\Http\Controllers\Diplom\DiplomControler::class, 'update'])->name('diploms.update');
+        });
     });
-
 });
 
+//ROSTS
+Route::get('/posts', [\App\Http\Controllers\Post\PostController::class, 'index'])->name('post.index');
+Route::get('/posts/{id}', [\App\Http\Controllers\Post\PostController::class, 'show'])->name('post.show');
+//SERVICES
+Route::get('/services', [\App\Http\Controllers\Service\ServiceController::class, 'index'])->name('services.index');
+Route::get('/services/{id}', [\App\Http\Controllers\Service\ServiceController::class, 'show'])->name('services.show');
+//DIPLOMS
+Route::get('/diploms', [\App\Http\Controllers\Diplom\DiplomControler::class, 'index'])->name('diploms.index');
+Route::get('/diploms/{id}', [\App\Http\Controllers\Diplom\DiplomControler::class, 'show'])->name('diploms.show');
 
+
+//REGISTER
 Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, '__invoke'])->name('register');
 
 //MAIL (подписка)

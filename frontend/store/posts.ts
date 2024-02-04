@@ -16,7 +16,7 @@ export const usePostStore = defineStore('postStore', {
     actions: {
         async GET_POSTS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/auth/posts')
+            await useNuxtApp().$axios.get('/api/posts')
                 .then(function(res) {
                   vm.posts = res.data;
                 })
@@ -35,7 +35,7 @@ export const usePostStore = defineStore('postStore', {
         },
 
         async GET_POST_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/auth/posts/${id}`)
+            return await useNuxtApp().$axios.get(`/api/posts/${id}`)
         },
 
         async UPDATE_POST({data, file}){

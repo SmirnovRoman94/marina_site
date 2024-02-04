@@ -43,7 +43,7 @@
           </svg>
         </NuxtLink>
       </li>
-        <li v-if="isAdmin == true" class="max-h-[80px]">
+        <li v-if="Authenticated === true && isAdmin == 1" class="max-h-[80px]">
           <v-menu open-on-hover>
             <template v-slot:activator="{ props }">
               <svg class="circle" xmlns="http://www.w3.org/2000/svg" v-bind="props">
@@ -64,7 +64,19 @@
             </v-list>
           </v-menu>
         </li>
-        <li v-if="isAdmin == true" class="max-h-[80px]">
+        <li v-if="Authenticated === true && isAdmin == 0">
+          <NuxtLink to="/profile">
+            <svg class="circle" xmlns="http://www.w3.org/2000/svg">
+              <g>
+                <ellipse class="foreground" ry="60" rx="30" cy="25.5" cx="75.5" stroke-width="1"/>
+                <ellipse class="foreground" ry="53" rx="33" cy="25.5" cx="75.5" stroke-width="1"/>
+                <ellipse class="foreground" ry="67" rx="37" cy="27.5" cx="78.5" stroke-width="1"/>
+                <text x="70" y="45" class="text_item" fill="black">Кабинет</text>
+              </g>
+            </svg>
+          </NuxtLink>
+        </li>
+        <li v-if="Authenticated === true" class="max-h-[80px]">
           <button @click.stop="onLogoutClick" class="btn">
             <svg class="circle" xmlns="http://www.w3.org/2000/svg">
               <g>
@@ -76,7 +88,7 @@
             </svg>
           </button>
         </li>
-        <li v-if="isAdmin == false" class="max-h-[80px]">
+        <li v-if="Authenticated === false" class="max-h-[80px]">
           <NuxtLink to="/login">
             <svg class="circle" xmlns="http://www.w3.org/2000/svg">
               <g>
@@ -100,7 +112,9 @@ import {watch} from "vue";
 const storeAuth = useAuthStore();
 const snackbar = useSnackbar();
 
-const isAdmin = computed(() => storeAuth.authenticated);
+const Authenticated = computed(() => storeAuth.authenticated);
+const isAdmin = computed(() => storeAuth.isAdmin);
+
 const LOGOUT = computed(() => storeAuth.logout);
 const router = useRouter();
 
@@ -123,6 +137,7 @@ watch(LOGOUT,(val) => {
     navigateTo('/');
   }
 });
+
 
 </script>
 

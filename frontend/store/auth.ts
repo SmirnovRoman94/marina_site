@@ -6,7 +6,8 @@ export const useAuthStore = defineStore('auth', {
         user: null,
         error: null,
         logout: false,
-        token: null
+        token: null,
+        isAdmin: 0
     }),
     getters: {
       USER(state) {
@@ -60,6 +61,7 @@ export const useAuthStore = defineStore('auth', {
                 .then(function(res) {
                     if(res.data){
                         vm.user = res.data
+                        localStorage.role = res.data?.role
                     }  else{
                         vm.error = res.data
                     }
@@ -77,9 +79,11 @@ export const useAuthStore = defineStore('auth', {
                     if(res.data?.message === 'Successfully logged out'){
                         vm.user =  null;
                         vm.authenticated = false;
+                        vm.isAdmin = 0;
                         vm.logout = true;
                         document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
                         localStorage.removeItem('access_token');
+                        localStorage.removeItem('role');
                     }
                 })
                 .catch(function (err){

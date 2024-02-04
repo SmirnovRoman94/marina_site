@@ -16,7 +16,7 @@ export const useDiplomsStore = defineStore('diplomsStore', {
     actions: {
         async GET_DIPLOMS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/auth/diploms')
+            await useNuxtApp().$axios.get('/api/diploms')
                 .then(function(res) {
                   vm.diploms = res.data;
                 })
@@ -33,7 +33,7 @@ export const useDiplomsStore = defineStore('diplomsStore', {
         },
 
         async GET_DIPLOM_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/auth/diploms/${id}`)
+            return await useNuxtApp().$axios.get(`/api/diploms/${id}`)
         },
 
         async UPDATE_DIPLOM({data, file}){
