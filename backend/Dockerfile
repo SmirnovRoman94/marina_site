@@ -18,9 +18,9 @@ COPY php.ini /etc/php/8.3/cli/conf.d/99-etc.ini
 COPY local.ini /usr/local/etc/php/php.ini
 # Install composer
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN curl -sS https://getcomposer.org/installer | php -- \
-    --filename=composer \
-    --install-dir=/usr/local/bin
+
+# Install Composer
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 
 COPY docker-compose.sh /docker-compose.sh

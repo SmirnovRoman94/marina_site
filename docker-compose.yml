@@ -5,15 +5,15 @@ services:
     tty: true
     volumes:
       - ./backend:/var/www/laravel
-    ports:
-      - '8000:8000'
+    #    ports:
+    #      - '8000:8000'
     env_file:
       - ./backend/.env
   mysql:
     image: mysql
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-    ports:
-      - '8101:3306'
+    #    ports:
+    #      - '8101:3306'
     env_file:
       - .env.local
     environment:
@@ -31,8 +31,8 @@ services:
       PMA_HOST: mysql
       PMA_ARBITRARY: 1
       restart: always
-    ports:
-      - "3400:80"
+    #    ports:
+    #      - "3400:81"
     depends_on:
       - mysql
   frontend:
@@ -44,8 +44,8 @@ services:
     volumes:
       - ./frontend:/usr/src/app
     command: sh -c 'npm install && npm run dev'
-    ports:
-      - '3000:3000'
+    #    ports:
+    #      - '3000:3000'
     tty: true
   nginx:
     build:
