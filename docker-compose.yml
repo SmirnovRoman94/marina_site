@@ -52,7 +52,7 @@ services:
       context: ./nginx/
       dockerfile: Dockerfile
     ports:
-      - 80:80
+      - 5001:80
     tty: true
     restart: always
     depends_on:
