@@ -3,6 +3,7 @@ services:
   backend:
     build: ./backend
     tty: true
+    restart: unless-stopped
     volumes:
       - ./backend:/var/www/laravel
     #    ports:
@@ -14,19 +15,16 @@ services:
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     #    ports:
     #      - '8101:3306'
+    restart: unless-stopped
     env_file:
       - .env.local
-    environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - /var/lib/mysql
   phpmyadmin:
     platform: linux/amd64
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin
+    restart: unless-stopped
     environment:
       PMA_HOST: mysql
       PMA_ARBITRARY: 1
@@ -44,6 +42,7 @@ services:
     volumes:
       - ./frontend:/usr/src/app
     command: sh -c 'npm install && npm run dev'
+    restart: unless-stopped
     #    ports:
     #      - '3000:3000'
     tty: true
@@ -54,7 +53,7 @@ services:
     ports:
       - 5001:80
     tty: true
-    restart: always
+    restart: unless-stopped
     depends_on:
       - frontend
       - backend
