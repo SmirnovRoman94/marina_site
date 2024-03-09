@@ -1,17 +1,19 @@
 <template>
 <v-footer>
   <img src="../assets/image/Frame_2060.png" class="frame">
-  <div class="content flex items-start justify-between  w-[90%] pt-3 px-[56px]" >
+  <div class="content flex items-start justify-space-around  w-[90%] pt-3 px-[56px]" >
 <!--    <v-btn class="mx-4" icon="mdi-instagram" variant="text"></v-btn>-->
-    <div class="max-w-sm">
-      <h3 class="text-uppercase text-sm">Подпишись на наш сайт и получи скидку 10% на первую консультацию</h3>
-      <v-form class="form w-[300px] z-10 top-16" @submit.prevent="send" ref="form">
-        <v-text-field class="some-style" label="Ваше имя" density="compact" variant="underlined" v-model="user.name" :rules="[(v) => !!v || 'Поле Имя не заполнено']"></v-text-field>
-        <v-text-field class="some-style" type="email" label="Ваш email" density="compact" variant="underlined" v-model="user.mail" :rules="[(v) => !!v || 'Поле email не заполнено']"></v-text-field>
-        <v-btn class="btn mt-2" type="submit">Я в деле</v-btn>
-      </v-form>
-      <div class="reserved bottom-5 position-absolute z-10">
-        Marina site 2023 © All Rights reserved
+    <v-form class="form w-[300px] z-10 top-16" @submit.prevent="send" ref="form">
+      <v-text-field class="some-style" label="Ваше имя" density="compact" variant="underlined" v-model="user.name" :rules="[(v) => !!v || 'Поле Имя не заполнено']"></v-text-field>
+      <v-text-field class="some-style" type="email" label="Ваш email" density="compact" variant="underlined" v-model="user.mail" :rules="[(v) => !!v || 'Поле email не заполнено']"></v-text-field>
+      <v-btn class="btn mt-2" type="submit">Я в деле</v-btn>
+    </v-form>
+    <div class="max-w-sm flex justify-space-between">
+      <div>
+        <h3 class="text-uppercase text-sm">Подпишись на наш сайт и получи скидку 10% на первую консультацию</h3>
+        <div class="reserved bottom-5 position-absolute z-10">
+          Marina site 2023 © All Rights reserved
+        </div>
       </div>
     </div>
     <div class="items">
@@ -68,7 +70,7 @@ function reset(){
 <style scoped lang="scss">
 .v-footer {
   background-color: #50735F !important;
-  min-height: 300px;
+  max-height: 200px;
   position: fixed;
   bottom: 0;
   width: 100%;

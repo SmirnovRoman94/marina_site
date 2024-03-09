@@ -126,7 +126,11 @@ const items = ref([
   { title: 'Главная', path: '/admin/' },
   { title: 'Посты', path: '/admin/posts' },
   { title: 'Услуги', path: '/admin/services' },
+  { title: 'Товары', path: '/admin/products' },
   { title: 'Дипломы', path: '/admin/diploms' },
+  { title: 'Пакеты (наборы)', path: '/admin/combo' },
+  { title: 'Оплата', path: '/admin/paying' },
+  { title: 'Пациенты', path: '/admin/patients' },
 ])
 
 

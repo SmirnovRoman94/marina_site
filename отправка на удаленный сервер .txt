@@ -1,0 +1,10 @@
+scp /Users/romansmirnov/Desktop/men_yong.png root@141.8.199.124:~ 
+
+Или 
+
+scp /Users/romansmirnov/Desktop/klen.png root@141.8.199.124:marina_site/frontend/assets/image
+
+Для отправки на удаленный сервер 
+
+ПАРОЛЬ:
+VkVSWlZsWkRORFJHU0ZveGIySXhNdz09

@@ -70,8 +70,12 @@ const ERROR = computed(() => storeAuth.error);
 
 watch(USER, (val) => {
   if(val && token !== null){
-    snackbar.add({type: 'success', text: `Вы зарегестрированы. Добро пожаловать, ${USER.value.role === 1 ? 'администратор' : 'пользователь'} ${USER.value.name}` });
-    navigateTo('/');
+    snackbar.add({type: 'success', text: `Добро пожаловать, ${USER.value.role === 1 ? 'администратор' : 'пользователь'} ${USER.value.name}` });
+    if(USER.value.role === 1){
+      navigateTo('/admin');
+    }else{
+      navigateTo('/profile');
+    }
   }
 });
 watch(ERROR, (val) => {

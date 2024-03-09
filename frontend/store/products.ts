@@ -6,7 +6,7 @@ export const useProductsStore = defineStore('productsStore', {
         errors: null
     }),
     getters: {
-          POSTS(state) {
+          PRODUCTS(state) {
             return state.products
           },
           ERRORS(state){
@@ -14,9 +14,9 @@ export const useProductsStore = defineStore('productsStore', {
           }
     },
     actions: {
-        async GET_POSTS() {
+        async GET_PRODUCTS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/auth/posts')
+            await useNuxtApp().$axios.get('/api/products')
                 .then(function(res) {
                   vm.products = res.data;
                 })
@@ -24,19 +24,33 @@ export const useProductsStore = defineStore('productsStore', {
                     vm.errors = err
                 })
         },
-        async SAVE_POST({data, file}){
+        async SAVE_PRODUCTS({data, file}){
             let form = new FormData();
-            for (let i = 0; i < file.length; i++) {
-                form.append('img', file[i]);
-            }
+            form.append('media', file);
             form.append('title', data.title);
-            form.append('description', data.text);
-            return await useNuxtApp().$axios.post('/api/product', form)
+            form.append('description', data.description);
+            form.append('price', data.price);
+            return await useNuxtApp().$axios.post('/api/auth/products', form)
 
         },
 
-        async GET_PRODUCT(id){
-            return await useNuxtApp().$axios.get(`/api/product/${id}`)
+        async GET_PRODUCTS_ITEM(id) {
+            return await useNuxtApp().$axios.get(`/api/products/${id}`)
+        },
+
+        async UPDATE_PRODUCTS({data, file}){
+            let form = new FormData();
+            form.append('id', data.id);
+            form.append('media', file);
+            form.append('title', data.title);
+            form.append('description', data.description);
+            form.append('price', data.price);
+            return await useNuxtApp().$axios.post(`/api/auth/products/edit/${data.id}`, form)
+
+        },
+
+        async DELETE_PRODUCTS(id){
+            return await useNuxtApp().$axios.delete(`/api/auth/products/${id}`)
         },
     },
 });

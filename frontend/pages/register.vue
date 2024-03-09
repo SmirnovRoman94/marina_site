@@ -104,7 +104,11 @@ const ERROR = computed(() => storeAuth.error);
 watch(USER, (val) => {
   if(val && token !== null){
     snackbar.add({type: 'success', text: `Вы зарегестрированы. Добро пожаловать, ${USER.value.role === 1 ? 'администратор' : 'пользователь'} ${USER.value.name}` });
-    router.push('/')
+    if(USER.value.role === 1){
+      router.push('/admin')
+    }else{
+      router.push('/profile')
+    }
   }
 });
 watch(ERROR, (val) => {

@@ -19,4 +19,20 @@ class CommentController extends Controller
 
         return response()->json(['mess' => 1, 'data' => $newComment]);
     }
+
+    public function index()
+    {
+        $all = Comment::all();
+
+        $comments = CommentResource::collection($all);
+
+        return response()->json(['mess' => 1, 'data' => $comments]);
+    }
+
+    public function delete(Comment $comment)
+    {
+        $comment->delete();
+
+        return response()->json(['mess' => 1]);
+    }
 }

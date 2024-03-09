@@ -7,20 +7,12 @@
           <div class="item_card mt-5">
             <img src="../assets/image/cardItem.png" class="card">
           </div>
-          <div class="item_card_text z-10">
-            <h5>Пакеты и услуги</h5>
-            <div>
-              <p v-if="services == null" class="text_no_service">У Вас пока нет приобретенных пакетов и услуг</p>
-            </div>
-          </div>
-          <div>
-            <v-btn class="btn mt-2 z-10" type="submit">Приобрести</v-btn>
-          </div>
+          <ServiceUserTable :dataTable="services"/>
 
           <!--form comment -->
-          <v-form  @submit.prevent="sendComment" ref="form">
+          <v-form  @submit.prevent="sendComment" ref="form" class="form">
             <h5 class="mt-5">Ваш комментарий</h5>
-            <div class="mt-0 z-10 editor">
+            <div class="mt-0  editor">
               <span class="text_no_service">Ваше имя</span>
               <v-text-field
                   v-model="comment.name"
@@ -29,35 +21,35 @@
                   placeholder="Иван"
                   :rules="[(v) => !!v || 'Поле Ваше имя обяательно для заполнения']"
                   required
-                  class="mt-1 z-10"
+                  class="mt-1"
               ></v-text-field>
             </div>
-            <div class="mt-0 z-10 editor">
+            <div class="mt-0  editor">
               <span  class="text_no_service">Комментарий</span>
               <client-only>
-                <div class="mt-1 z-10">
-                  <QuillEditor theme="snow" v-model:content="comment.text" contentType="html" toolbar="essential" class="z-10" ref="myEditor" />
+                <div class="mt-1 ">
+                  <QuillEditor theme="snow" v-model:content="comment.text" contentType="html" toolbar="essential"  ref="myEditor" />
                   <span v-if="showErr === true && (comment.text == null || comment.text === '')" class="error_text">Поле Комментарий обяательно для заполнения</span>
                 </div>
               </client-only>
-              <v-btn class="btn mt-2 z-10" type="submit">Отправить</v-btn>
+              <v-btn class="btn mt-2" type="submit">Отправить</v-btn>
             </div>
           </v-form>
         </div>
-        <img src="../assets/image/yongMen.svg" class="men">
-        <div class="flower"></div>
-        <div class="flower_2"></div>
-        <div class="list"></div>
-        <div class="list_2"></div>
       </v-col>
     </v-row>
+    <img src="../assets/image/yongMen.svg" class="men z-[-10]">
+    <div class="flower z-[-10]"></div>
+    <div class="flower_2 z-[-10]"></div>
+    <div class="list z-[-10]"></div>
+    <div class="list_2 z-[-10]"></div>
   </v-container>
 </template>
 
 <script setup>
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
 import { useCommentStore } from "@/store/comment";
-
+import ServiceUserTable from "@/components/ServiceUserTable.vue";
 
 //STORE
 const commentStore = useCommentStore();
@@ -70,8 +62,6 @@ if(!process.server){
   if (!vueApp._context.components.QuillEditor)
     vueApp.component('QuillEditor', QuillEditor)
 }
-
-const services = ref(null);
 
 
 //comments
@@ -137,6 +127,9 @@ h5 {
 .editor{
   width: 30%;
 }
+.form{
+  z-index: 10 !important;
+}
 @media screen and (max-width: 500px){
   .card{
     width: 100%;
@@ -191,6 +184,7 @@ h5 {
   left: 10%;
   width: 250px;
   height: 250px;
+
 }
 .flower_2{
   position: absolute;
@@ -203,7 +197,7 @@ h5 {
 .list{
   position: absolute;
   background-image: url("../assets/image/list_profile.png");
-  top: 50%;
+  top: 60%;
   left: 10%;
   width: 200px;
   height: 150px;

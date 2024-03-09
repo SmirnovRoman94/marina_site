@@ -17,12 +17,14 @@ export default defineNuxtRouteMiddleware((to, from) => {
             isAdmin.value = 1
         }
     }else{
-        authenticated.value = false;
-        isAdmin.value = 0;
-        localStorage.removeItem('access_token')
-        localStorage.removeItem('role');
-        if (window.location.pathname !== '/') {
-            window.location.pathname = '/';
+        if(to?.name !== 'register'){
+            authenticated.value = false;
+            isAdmin.value = 0;
+            localStorage.removeItem('access_token')
+            localStorage.removeItem('role');
+            // if (window.location.pathname !== '/') {
+            //     window.location.pathname = '/';
+            // }
         }
     }
 
