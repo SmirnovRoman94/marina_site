@@ -23,9 +23,11 @@ class Service_comboResource extends JsonResource
             'discount' => $this->discount,
             'count_level' => $this->count_level,
             'level' => $this->level,
+            'count' => $this->сountCombo(),
             'price' => $this->resultPrice(),
             'image' => $this->getFirstMediaUrl('images'),
-            'services' => ServiceForComboResource::collection($this->services)
+            'services' => ServiceForComboResource::collection($this->services),
+            'type' => 'Service_combo'
         ];
     }
 }

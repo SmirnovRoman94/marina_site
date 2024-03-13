@@ -83,6 +83,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 Route::get('/paying', [PayController::class, 'index'])->name('pay.index');
 //PATIENTS
 Route::post('/patients', [PatientController::class, 'store'])->name('patients.store');
+Route::get('/patients/user/{id}', [PatientController::class, 'patientUser'])->name('patients.patientUser');
 //ROSTS
 Route::get('/posts', [PostController::class, 'index'])->name('post.index');
 Route::get('/posts/{id}', [PostController::class, 'show'])->name('post.show');

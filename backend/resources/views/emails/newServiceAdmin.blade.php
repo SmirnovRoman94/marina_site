@@ -14,6 +14,11 @@
             color: #50735F;
             text-transform: uppercase;
             font-weight: 200;
+            text-align: center;
+        }
+        td, th{
+            padding-left: 20px;
+            padding-right: 20px;
         }
     </style>
 </head>
@@ -48,11 +53,11 @@
                 @foreach($user->services as $service)
                     <tr>
                         <td>Приобретенный товар(услуга)</td>
-                        <td>{{ $service }}</td>
+                        <td>{{ $service->title }}</td>
                     </tr>
                     <tr>
                         <td>Количество</td>
-                        <td>{{ $service->count }}</td>
+                        <td>{{ $service->oder_count }}</td>
                     </tr>
                 @endforeach
                 <tr>

@@ -20,7 +20,7 @@ class SendMailAdminListner
         $user->services = $servicesItems ?? [];
         if (!empty($servicesItems)) {
             foreach ($servicesItems as $item) {
-                $user->allPrice = $user->allPrice + $item->price;
+                $user->allPrice = $user->allPrice + ($item->price * $item->oder_count);
             }
         }
 

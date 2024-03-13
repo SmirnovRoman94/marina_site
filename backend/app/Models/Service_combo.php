@@ -13,6 +13,7 @@ class Service_combo extends Model implements HasMedia
     protected $guarded = false;
     use InteractsWithMedia;
 
+
     public function services()
     {
         return $this->belongsToMany(Service::class, 'service_service_combos', 'combo_id', 'service_id')->withPivot('count');;
@@ -23,4 +24,8 @@ class Service_combo extends Model implements HasMedia
         return $this->old_price-(($this->old_price*$this->discount)/100);
     }
 
+    public function сountCombo()
+    {
+        return PatientService::where('item_id', $this->id)->value('count');
+    }
 }

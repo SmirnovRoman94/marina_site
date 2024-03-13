@@ -13,9 +13,14 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//return view('emails.greeting');
 Route::get('/', function () {
-    return view('emails.greeting');
+    \Illuminate\Support\Facades\Http::post('https://api.telegram.org/bot6768671724:AAGmTyvsrHuNguqSadzrFVgc3KHTHW0uxtE
+/sendMessage', [
+        'chat_id' => 800670294,
+        'text' => 'Привет от бота'
+    ])->json();
 });
+
 
 

@@ -22,7 +22,9 @@ class ServiceResource extends JsonResource
             'duration' => $this->duration,
             'preview' => $this->preview,
             'price' => $this->price,
+            'count' => $this->countService(),
             'image' => $this->getFirstMediaUrl('images'),
+            'type' => 'Service'
         ];
     }
 }

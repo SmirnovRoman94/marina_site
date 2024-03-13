@@ -14,5 +14,8 @@ class Product extends Model implements HasMedia
     protected $guarded = false;
     use InteractsWithMedia;
 
-
+    public function countProduct()
+    {
+        return PatientService::where('item_id', $this->id)->value('count');
+    }
 }

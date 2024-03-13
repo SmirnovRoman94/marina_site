@@ -25,9 +25,9 @@ class PatientStoreRequest extends FormRequest
             'user_id' => 'required|integer|exists:users,id',
             'diagnosis' => 'nullable|string',
             'comments' => 'nullable|string',
-            'products' => 'nullable|array',
-            'services' => 'nullable|array',
-            'service_combo' => 'nullable|array',
+            'products' => 'nullable|string',
+            'services' => 'nullable|string',
+            'service_combo' => 'nullable|string',
             'file_check' => 'nullable|file|image',
         ];
     }

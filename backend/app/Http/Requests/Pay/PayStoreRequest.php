@@ -27,6 +27,7 @@ class PayStoreRequest extends FormRequest
             'surname' => 'string|required',
             'name' => 'string|required',
             'patromic' => 'string|required',
+            'active' => 'required|boolean'
         ];
     }
 }

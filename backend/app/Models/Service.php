@@ -14,4 +14,9 @@ class Service extends Model implements HasMedia
     use SoftDeletes;
     protected $guarded = false;
     use InteractsWithMedia;
+
+    public function countService()
+    {
+        return PatientService::where('item_id', $this->id)->value('count');
+    }
 }

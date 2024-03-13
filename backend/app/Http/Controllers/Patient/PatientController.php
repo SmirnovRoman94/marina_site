@@ -6,6 +6,9 @@ use App\Events\SendMailAdminEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Patient\PatientStoreRequest;
 use App\Http\Resources\Patient\PatientResource;
+use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Service\ServiceResource;
+use App\Http\Resources\Service_combo\Service_comboResource;
 use App\Models\Patient;
 use App\Models\PatientService;
 use App\Models\Product;
@@ -32,90 +35,114 @@ class PatientController extends Controller
         $itemsServices = [];
         //добавление продуктов
         if(isset($data['products'])){
+            $array = json_decode($data['products'], true);
             $productsData = [];
-            $regex = '/{id: (\d+), count: (\d+)}/';
-            preg_match_all($regex, $data['products'][0], $matches);
-            foreach ($matches[1] as $key => $productId) {
-                $productsData[$productId] = ['count' => $matches[2][$key]];
+            foreach ($array as $key => $productId) {
+                $productsData[$productId['id']] = ['count' => $productId['count']];
             }
 
             $products = Product::whereIn('id',  array_keys($productsData))->get();
-            $itemsServices = array_merge($itemsServices, $products);
+            $result = [];
+            foreach ($products as $el){
+                $el->oder_count = $productsData[$el->id]['count'];
+                array_push($result, $el);
+            }
+            $itemsServices = array_merge($itemsServices, $result);
             foreach ($products as $product) {
                 $count = $productsData[$product->id]['count'];
-                $condition = [
-                    'patient_id' => $patient->id,
-                    'item_id' => $product->id,
-                    'item_type' => 'Product'
-                ];
-                $values = [
-                    'patient_id' => $patient->id,
-                    'item_id' => $product->id,
-                    'item_type' => 'Product',
-                    'count' => $count
-                ];
-                PatientService::updateOrCreate($condition, $values);
+                $patientService = PatientService::where('patient_id', $patient->id)
+                    ->where('item_id', $product->id)
+                    ->where('item_type', 'Product')
+                    ->first();
+                if ($patientService) {
+                    // Если запись найдена, увеличиваем count на 5
+                    $patientService->count += $count;
+                    $patientService->save();
+                } else {
+                    // Если запись не найдена, создаем новую запись
+                    $values = [
+                        'patient_id' => $patient->id,
+                        'item_id' => $product->id,
+                        'item_type' => 'Product',
+                        'count' => $count // В данном случае начальное значение count равно 5
+                    ];
+                    PatientService::create($values);
+                }
             }
         }
 
         //добавление сервисов
         if(isset($data['services'])){
+            $array = json_decode($data['services'], true);
             $productsData = [];
-            $regex = '/{id: (\d+), count: (\d+)}/';
-            preg_match_all($regex, $data['services'][0], $matches);
-            foreach ($matches[1] as $key => $productId) {
-                $productsData[$productId] = ['count' => $matches[2][$key]];
+            foreach ($array as $key => $productId) {
+                $productsData[$productId['id']] = ['count' => $productId['count']];
             }
-
             $services = Service::whereIn('id',  array_keys($productsData))->get();
-            $itemsServices = array_merge($itemsServices, $services);
+            $result = [];
+            foreach ($services as $el){
+                $el->oder_count = $productsData[$el->id]['count'];
+                array_push($result, $el);
+            }
+            $itemsServices = array_merge($itemsServices, $result);
             foreach ($services as $service) {
                 $count = $productsData[$service->id]['count'];
-                $condition = [
-                    'patient_id' => $patient->id,
-                    'item_id' => $service->id,
-                    'item_type' => 'Service'
-                ];
-                $values = [
-                    'patient_id' => $patient->id,
-                    'item_id' => $service->id,
-                    'item_type' => 'Service',
-                    'count' => $count
-                ];
-                PatientService::updateOrCreate($condition, $values);
+                $patientService = PatientService::where('patient_id', $patient->id)
+                    ->where('item_id', $service->id)
+                    ->where('item_type', 'Service')
+                    ->first();
+                if ($patientService) {
+                    // Если запись найдена, увеличиваем count на 5
+                    $patientService->count += $count;
+                    $patientService->save();
+                } else {
+                    // Если запись не найдена, создаем новую запись
+                    $values = [
+                        'patient_id' => $patient->id,
+                        'item_id' => $service->id,
+                        'item_type' => 'Service',
+                        'count' => $count // В данном случае начальное значение count равно 5
+                    ];
+                    PatientService::create($values);
+                }
             }
         }
 
         //добавление комбо
         if(isset($data['service_combo'])){
+            $array = json_decode($data['service_combo'], true);
             $productsData = [];
-            $regex = '/{id: (\d+), count: (\d+)}/';
-            preg_match_all($regex, $data['service_combo'][0], $matches);
-            foreach ($matches[1] as $key => $productId) {
-                $productsData[$productId] = ['count' => $matches[2][$key]];
+            foreach ($array as $key => $productId) {
+                $productsData[$productId['id']] = ['count' => $productId['count']];
             }
-
             $service_combos = Service_combo::whereIn('id',  array_keys($productsData))->get();
             $resultCombos = [];
             foreach ($service_combos as $el){
-                $el->price = $el->old_price-(($el->old_price*$el->discount)/100);;
+                $el->price = $el->old_price-(($el->old_price*$el->discount)/100);
+                $el->oder_count = $productsData[$el->id]['count'];
                 array_push($resultCombos, $el);
             }
             $itemsServices = array_merge($itemsServices, $resultCombos);
             foreach ($service_combos as $service_combo) {
                 $count = $productsData[$service_combo->id]['count'];
-                $condition = [
-                    'patient_id' => $patient->id,
-                    'item_id' => $service_combo->id,
-                    'item_type' => 'Service_combo'
-                ];
-                $values = [
-                    'patient_id' => $patient->id,
-                    'item_id' => $service_combo->id,
-                    'item_type' => 'Service_combo',
-                    'count' => $count
-                ];
-                PatientService::updateOrCreate($condition, $values);
+                $patientService = PatientService::where('patient_id', $patient->id)
+                    ->where('item_id', $service_combo->id)
+                    ->where('item_type', 'Service_combo')
+                    ->first();
+                if ($patientService) {
+                    // Если запись найдена, увеличиваем count на 5
+                    $patientService->count += $count;
+                    $patientService->save();
+                } else {
+                    // Если запись не найдена, создаем новую запись
+                    $values = [
+                        'patient_id' => $patient->id,
+                        'item_id' => $service_combo->id,
+                        'item_type' => 'Service_combo',
+                        'count' => $count // В данном случае начальное значение count равно 5
+                    ];
+                    PatientService::create($values);
+                }
             }
         }
 
@@ -137,5 +164,27 @@ class PatientController extends Controller
         $patientItems = PatientResource::collection($patients);
 
         return response()->json(['mess' => 1, 'data' => $patientItems]);
+    }
+
+    public function patientUser(int $id)
+    {
+        $patient = Patient::where('user_id', $id)->first();
+
+        $servicesIDs = $patient->services->pluck('item_id');
+        $services = Service::whereIn('id', $servicesIDs)->get();
+        $servicesRes = ServiceResource::collection($services);
+
+        $combosIDs = $patient->serviceCombos->pluck('item_id');
+        $combos = Service_combo::whereIn('id', $combosIDs)->get();
+        $combosRes = Service_comboResource::collection($combos);
+
+        $productsIDs = $patient->products->pluck('item_id');
+        $products = Product::whereIn('id', $productsIDs)->get();
+        $productsRes = ProductResource::collection($products);
+
+
+        $result = $servicesRes->concat($combosRes)->concat($productsRes);
+
+        return response()->json(['mess' => 1, 'data' => $result]);
     }
 }

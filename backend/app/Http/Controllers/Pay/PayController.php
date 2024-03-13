@@ -7,6 +7,7 @@ use App\Http\Requests\Pay\PayStoreRequest;
 use App\Http\Requests\Pay\PayUpdateRequest;
 use App\Models\Pay;
 use Illuminate\Http\Request;
+use PhpParser\Builder;
 
 class PayController extends Controller
 {
@@ -19,9 +20,15 @@ class PayController extends Controller
         return response()->json(['mess' => 1, 'data' => $pay]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return Pay::all();
+        $pays = Pay::when(!empty($request->input('params')), function ($query) use ($request) {
+            $item = $request->input('params');
+            return $query->where('active', $item);
+        })
+            ->get();
+
+        return $pays;
     }
 
     public function update(PayUpdateRequest $request, Pay $pay)
