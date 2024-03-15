@@ -1,6 +1,8 @@
 import axios from 'axios';
+import {useAuthStore} from "@/store/auth";
 
 export default defineNuxtPlugin(async () => {
+    const authStore = useAuthStore();
     const router = useRouter();
     const api = axios.create({
         baseURL: 'http://localhost:8000/api',
@@ -39,17 +41,18 @@ export default defineNuxtPlugin(async () => {
                 })
                 .catch(err => {
                     console.log(err)
-                    if(err.response.data.message = 'The token has been blacklisted'){
+                    if(err.response.data.message == 'The token has been blacklisted'){
                         localStorage.removeItem('access_token')
                     }
                 })
         }
         if(error.response.data.message === 'Request failed with status code 401'){
             router.push('/login');
-
+            authStore.GET_LOGOUT();
         }
         if(error.response.data.message === 'Unauthenticated.'){
             router.push('/login');
+            authStore.GET_LOGOUT();
 
         }
         return Promise.reject(error);
