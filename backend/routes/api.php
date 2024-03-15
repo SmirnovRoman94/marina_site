@@ -111,13 +111,7 @@ Route::post('/register', [RegisterController::class, '__invoke'])->name('registe
 Route::post('/email', [MailController::class, 'sendMail'])->name('email.sendMail');
 
 //COMMETS
-Route::get('/comments', function () {
-    \Illuminate\Support\Facades\Http::post('https://api.telegram.org/bot6768671724:AAGmTyvsrHuNguqSadzrFVgc3KHTHW0uxtE
-/sendMessage', [
-        'chat_id' => 800670294,
-        'text' => 'Привет от бота'
-    ])->json();
-})->name('comment.index');
+Route::get('/comments', [CommentController::class, 'index'])->name('comment.index');
 
 
 

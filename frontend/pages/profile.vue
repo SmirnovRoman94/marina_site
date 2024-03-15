@@ -7,8 +7,7 @@
           <div class="item_card mt-5">
             <img src="../assets/image/cardItem.png" class="card">
           </div>
-          <ServiceUserTable :dataTable="services"/>
-
+          <ServiceUserTable/>
           <!--form comment -->
           <v-form  @submit.prevent="sendComment" ref="form" class="form">
             <h5 class="mt-5">Ваш комментарий</h5>
@@ -136,10 +135,7 @@ h5 {
     right: 0px;
   }
   .men{
-    margin-top: 0%;
-    position: absolute;
-    bottom: 50px;
-    right: 20px;
+    display: none;
   }
   .item_card_text{
     margin-top: 60%;

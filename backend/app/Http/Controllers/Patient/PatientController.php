@@ -15,10 +15,12 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\Service_combo;
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Telegram\Handler;
+use DefStudio\Telegraph\Facades\Telegraph;
+use DefStudio\Telegraph\Keyboard\Button;
+use DefStudio\Telegraph\Keyboard\Keyboard;
 use Illuminate\Support\Facades\Event;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class PatientController extends Controller
 {
@@ -149,7 +151,11 @@ class PatientController extends Controller
         $user = User::findOrFail($data['user_id']);
         if ($request->hasFile('file_check')) {
             $file = $request->file('file_check');
+            $fileName = $request->file('file_check')->getClientOriginalName();
+            $file->store('cheks', 'public');
+
             Event::dispatch(new SendMailAdminEvent($user ,$file, $itemsServices));
+            Handler::sendNewOrder();
         }
 
         $patientItem = new PatientResource($patient);

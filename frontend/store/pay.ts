@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import {param} from "ts-interface-checker";
 
 export const usePayStore = defineStore('payStore', {
     state: () => ({
@@ -14,15 +15,23 @@ export const usePayStore = defineStore('payStore', {
           }
     },
     actions: {
-        async GET_PAYS() {
+        async GET_PAYS(filter) {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/paying')
+            console.log(filter)
+            await useNuxtApp().$axios.get('/api/paying', {
+                params: {params: filter}
+            })
                 .then(function(res) {
                   vm.pays = res.data;
                 })
                 .catch(function (err){
                     vm.errors = err
                 })
+        },
+        async GET_PAYS_SYNC(filter) {
+            return await useNuxtApp().$axios.get('/api/paying', {
+                params: {params: filter}
+            })
         },
         async SAVE_PAYS(data){
             return await useNuxtApp().$axios.post('/api/auth/paying', data)

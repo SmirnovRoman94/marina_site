@@ -26,7 +26,7 @@
           </template>
         </v-list-item>
         <v-divider></v-divider>
-        <v-list density="comfortable" nav>
+        <v-list density="comfortable" nav  @click.stop="rail = !rail">
           <NuxtLink to="/">
             <v-list-item prepend-icon="mdi-home-city" title="Главная" value="home"></v-list-item>
           </NuxtLink>
@@ -48,13 +48,13 @@
               </NuxtLink>
             </v-list>
           </v-menu>
-          <NuxtLink to="/profile" v-if="Authenticated === true && isAdmin == 0">
+          <NuxtLink to="/profile" v-if="Authenticated === true && isAdmin == 0"  @click.stop="rail = !rail">
             <v-list-item prepend-icon="mdi-monitor-dashboard" title="Кабинет" value="profile"></v-list-item>
           </NuxtLink>
-          <NuxtLink to="/login" v-if="Authenticated === false">
+          <NuxtLink to="/login" v-if="Authenticated === false"  @click.stop="rail = !rail">
             <v-list-item prepend-icon="mdi-login" title="Войти" value="login"></v-list-item>
           </NuxtLink>
-          <v-list-item prepend-icon="mdi-logout" title="Выйти" value="logout" @click.stop="onLogoutClick" v-if="Authenticated === true"></v-list-item>
+          <v-list-item prepend-icon="mdi-logout" title="Выйти" value="logout" @click.stop="onLogoutClick" v-if="Authenticated === true" ></v-list-item>
         </v-list>
       </v-navigation-drawer>
       <v-main class="mt-5 main">
@@ -70,7 +70,6 @@ import Header from "@/components/Header.vue";
 import Footer from "@/components/Footer.vue";
 import { useWindowSize } from 'vue-window-size';
 import {useAuthStore} from "../store/auth";
-import {watch} from "vue";
 const storeAuth = useAuthStore();
 
 const Authenticated = computed(() => storeAuth.authenticated);
@@ -80,11 +79,13 @@ const { width } = useWindowSize();
 const drawer =  ref(true);
 const rail = ref(false);
 
+const router = useRouter();
+
 async function onLogoutClick(){
+  rail.vlue = !rail.value;
   await storeAuth.GET_LOGOUT()
+  router.push('/');
 }
-
-
 
 const items = ref([
   { title: 'Главная', path: '/admin/' },

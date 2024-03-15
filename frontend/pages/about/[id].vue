@@ -82,13 +82,13 @@ function addServise(){
       localStorage.setItem('services', servicesString);
       snackbar.add({type: 'success', text: 'Услуга успешно добавлена. Информация обновлена в личном кабинете'});
     }else{
-      servicesArray.push({type: 'App\Service_combo', id: combo.value.id, count: 1, item: combo.value});
+      servicesArray.push({type: 'Service_combo', id: combo.value.id, count: 1, item: combo.value});
       let servicesString = JSON.stringify(servicesArray);
       localStorage.setItem('services', servicesString);
       snackbar.add({type: 'success', text: 'Услуга успешно добавлена. Информация обновлена в личном кабинете'});
     }
   }else{
-    let servicesString = JSON.stringify([{type: 'App\Service_combo', id: combo.value.id, count: 1, item: combo.value}]);
+    let servicesString = JSON.stringify([{type: 'Service_combo', id: combo.value.id, count: 1, item: combo.value}]);
     localStorage.setItem('services', servicesString);
     snackbar.add({type: 'success', text: 'Услуга успешно добавлена. Информация обновлена в личном кабинете'});
   }

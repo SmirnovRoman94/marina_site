@@ -1,9 +1,28 @@
 <template>
   <div class="item_card_text z-10">
-    <h5>Пакеты и услуги</h5>
+    <h5>Ваши пакеты и услуги</h5>
+    <div v-if="userServices == null">
+      <p class="text_no_service">У Вас пока нет приобретенных пакетов и услуг</p>
+    </div>
+    <div v-else>
+      <div class="flex justify-space-around max-w-[400px] sm:w-[30%] border  border-gray:50 p-2 mt-5">
+        <div class="w-2/4 text-center border-r marck-script-regular">Наименование услуги</div>
+        <div class="w-2/4 text-center marck-script-regular">Количество</div>
+      </div>
+      <div v-for="el in userServices" class="flex justify-space-around items-end  max-w-[400px] sm:w-[30%] border  border-gray:50 p-2">
+        <div class="w-2/4 border-r text-center naming">
+          {{el.title}}
+        </div>
+        <div class="w-2/4 text-center pl-2 naming">
+          <span>{{el.count}}</span>
+        </div>
+      </div>
+    </div>
+
+    <h5 class="mt-5">Корзина</h5>
     <div class="content">
       <div v-if="serviceLengt == 0">
-        <p class="text_no_service">У Вас пока нет приобретенных пакетов и услуг</p>
+        <p class="text_no_service">Корзина пуста</p>
       </div>
       <div v-else>
         <div class="flex justify-space-around max-w-[30%] border  border-gray:50 p-2 mt-5">
@@ -38,10 +57,12 @@
 
 <script setup>
 import {useAuthStore} from "@/store/auth";
+import {usePatientStore} from "@/store/patient";
 import DialogPay from "@/components/DialogPay.vue";
 
 //store
 const storeUser = useAuthStore();
+const patientStore = usePatientStore();
 
 const services = ref([]);
 
@@ -96,9 +117,69 @@ function resultPay(item){
 
 const USER = computed(() => storeUser.USER);
 
-function sendPay(){
-  console.log(USER.value);
+watch(USER, (val) => {
+  if(val !== null){
+    getServicePatient(USER.value.id)
+  }
+})
 
+const userServices = ref(null);
+
+function getServicePatient(id){
+  patientStore.GET_PATIENT_ITEM_FOR_USER(id)
+      .then(res => {
+        userServices.value = res.data.data;
+      })
+      .catch(() => snackbar.add({type: 'error', text: 'Произошла внутренняя ошибка' }))
+}
+
+async function sendPay(){
+  let Service_combo = service_combo();
+  let service = services_func();
+  let product = products();
+  await patientStore.SAVE_PATIENT({
+    data: {user_id: USER.value.id, service_combo: Service_combo, services: service, products: product},
+    file: file.value ?? null
+  })
+      .then(res => {
+        if(res.data.mess === 1){
+          localStorage.clear('services');
+          getServicePatient(USER.value.id);
+          services.value = [];
+        }
+      })
+}
+
+function service_combo(){
+  let items = services.value.filter(el => el.type === 'Service_combo');
+  let result = [];
+  if(items && items.length > 0){
+    items.forEach(elem => {
+      result.push({id: elem.item.id, count: elem.count});
+    })
+  }
+  return result;
+}
+function services_func(){
+  let items = services.value.filter(el => el.type === 'Service');
+  let result = [];
+  if(items && items.length > 0){
+    items.forEach(elem => {
+      result.push({id: elem.item.id, count: elem.count});
+    })
+  }
+  return result;
+}
+
+function products(){
+  let items = services.value.filter(el => el.type === 'Product');
+  let result = [];
+  if(items && items.length > 0){
+    items.forEach(elem => {
+      result.push({id: elem.item.id, count: elem.count});
+    })
+  }
+  return result;
 }
 </script>
 
@@ -137,5 +218,8 @@ h2{
   color: #8f8f93;
   font-family: 'Caveat', cursive;
   font-size: 20px;
+}
+.width_table{
+  width: 30%;
 }
 </style>

@@ -74,11 +74,17 @@ async function addPay(){
   }
 }
 
-const PAYS = computed(() => store.PAYS[0]);
+const PAYS = ref([]);
 
 watchEffect(() => {
   dialog.value = props.open;
-  store.GET_PAYS();
+  if(props.open === true){
+     store.GET_PAYS_SYNC(1)
+         .then(res => {
+           console.log(res)
+           PAYS.value = res.data[0];
+         })
+  }
 });
 
 </script>
