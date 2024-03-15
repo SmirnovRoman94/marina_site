@@ -6,3 +6,4 @@ if [ ! -e ./.env ]; then
 fi
 
 php artisan serve --host=0.0.0.0
+php artisan migrate
