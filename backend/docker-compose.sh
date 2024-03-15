@@ -5,5 +5,8 @@ if [ ! -e ./.env ]; then
   cp .env.example .env
 fi
 
-php artisan serve --host=0.0.0.0
+sleep 60 # ждем завершения инициализации db
 php artisan migrate
+php artisan regBot
+php artisan serve --host=0.0.0.0
+~

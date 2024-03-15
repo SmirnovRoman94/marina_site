@@ -32,4 +32,9 @@ class Handler extends WebhookHandler
     {
         $this->reply('Спасибо, оплата НЕ прошла');
     }
-}
+//$bot = \DefStudio\Telegraph\Models\TelegraphBot::find(1);
+//$bot->registerCommands([
+//'sendPay' => 'seden pay',
+//'noSendPay' => 'no send'
+//])->send();
+//}
