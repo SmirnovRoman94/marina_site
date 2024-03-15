@@ -9,6 +9,18 @@
             required
         ></v-text-field>
         <v-text-field
+            v-model="user.surname"
+            placeholder="Ваша фамилия"
+            :rules="surRules"
+            required
+        ></v-text-field>
+        <v-text-field
+            v-model="user.patromic"
+            placeholder="Ваше отчество"
+            :rules="patromicRules"
+            required
+        ></v-text-field>
+        <v-text-field
             v-model="user.email"
             placeholder="Ваш email"
             :rules="emailRules"
@@ -42,6 +54,8 @@ const confirmPassword = ref('');
 
 const user = reactive({
   name: '',
+  surname: '',
+  patromic: '',
   email: '',
   password: ''
 });
@@ -54,6 +68,26 @@ const nameRules = [
   value => {
     if(value?.length >= 3) return true
     return  'Имя должно содержать более 3 символов'
+  }
+];
+const surRules = [
+  value => {
+    if(value) return true
+    return  'Поле обязательно для заполнения'
+  },
+  value => {
+    if(value?.length >= 3) return true
+    return  'Фамилия должно содержать более 3 символов'
+  }
+];
+const patromicRules = [
+  value => {
+    if(value) return true
+    return  'Поле обязательно для заполнения'
+  },
+  value => {
+    if(value?.length >= 3) return true
+    return  'Отчетсво должно содержать более 3 символов'
   }
 ];
 const emailRules = [
