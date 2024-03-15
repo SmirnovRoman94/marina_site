@@ -48,12 +48,23 @@ export default defineNuxtPlugin(async () => {
         }
         if(error.response.data.message === 'Request failed with status code 401'){
             router.push('/login');
-            authStore.GET_LOGOUT();
+            document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+            authStore.authenticated = false;
+            authStore.user = null;
+            authStore.isAdmin = 0;
+            authStore.logout = true;
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('role');
         }
         if(error.response.data.message === 'Unauthenticated.'){
             router.push('/login');
-            authStore.GET_LOGOUT();
-
+            document.cookie = `token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+            authStore.authenticated = false;
+            authStore.user = null;
+            authStore.isAdmin = 0;
+            authStore.logout = true;
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('role');
         }
         return Promise.reject(error);
     });
