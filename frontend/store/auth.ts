@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
     actions: {
         async GET_REGISTER(item) {
             let vm = this;
-            await useNuxtApp().$axios.post('/api/register', item)
+            await useNuxtApp().$axios.post('/register', item)
                 .then(function(res) {
                   if(res.data?.mess === 2){
                       vm.token = res.data?.access_token
@@ -39,7 +39,7 @@ export const useAuthStore = defineStore('auth', {
         },
         async GET_AUTHENTICATE(item){
             let vm = this;
-            await useNuxtApp().$axios.post('/api/auth/login', item)
+            await useNuxtApp().$axios.post('/auth/login', item)
                 .then(function(res) {
                     const expirationTime = new Date(new Date().getTime() + 4 * 60 * 60 * 1000).toUTCString();
                     document.cookie = `token=${res.data?.access_token}; expires=${expirationTime}; path=/`;
@@ -57,7 +57,7 @@ export const useAuthStore = defineStore('auth', {
         },
         async GET_USER(){
             let vm = this;
-            await useNuxtApp().$axios.post('/api/auth/me')
+            await useNuxtApp().$axios.post('/auth/me')
                 .then(function(res) {
                     if(res.data){
                         vm.user = res.data
@@ -73,7 +73,7 @@ export const useAuthStore = defineStore('auth', {
 
         async GET_LOGOUT(){
             let vm = this;
-            await useNuxtApp().$axios.post('/api/auth/logout')
+            await useNuxtApp().$axios.post('/auth/logout')
                 .then(function(res) {
                     console.log(res)
                     if(res.data?.message === 'Successfully logged out'){

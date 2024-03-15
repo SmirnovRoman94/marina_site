@@ -16,7 +16,7 @@ export const useProductsStore = defineStore('productsStore', {
     actions: {
         async GET_PRODUCTS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/products')
+            await useNuxtApp().$axios.get('/products')
                 .then(function(res) {
                   vm.products = res.data;
                 })
@@ -30,12 +30,12 @@ export const useProductsStore = defineStore('productsStore', {
             form.append('title', data.title);
             form.append('description', data.description);
             form.append('price', data.price);
-            return await useNuxtApp().$axios.post('/api/auth/products', form)
+            return await useNuxtApp().$axios.post('/auth/products', form)
 
         },
 
         async GET_PRODUCTS_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/products/${id}`)
+            return await useNuxtApp().$axios.get(`/products/${id}`)
         },
 
         async UPDATE_PRODUCTS({data, file}){
@@ -45,12 +45,12 @@ export const useProductsStore = defineStore('productsStore', {
             form.append('title', data.title);
             form.append('description', data.description);
             form.append('price', data.price);
-            return await useNuxtApp().$axios.post(`/api/auth/products/edit/${data.id}`, form)
+            return await useNuxtApp().$axios.post(`/auth/products/edit/${data.id}`, form)
 
         },
 
         async DELETE_PRODUCTS(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/products/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/products/${id}`)
         },
     },
 });

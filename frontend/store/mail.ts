@@ -14,7 +14,7 @@ export const useMailStore = defineStore('mailStore', {
             let form = new FormData();
             form.append('email', data.mail);
             form.append('name', data.name);
-            return await useNuxtApp().$axios.post('/api/email', form)
+            return await useNuxtApp().$axios.post('/email', form)
         },
     },
 });

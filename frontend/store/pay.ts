@@ -18,7 +18,7 @@ export const usePayStore = defineStore('payStore', {
         async GET_PAYS(filter) {
             let vm = this;
             console.log(filter)
-            await useNuxtApp().$axios.get('/api/paying', {
+            await useNuxtApp().$axios.get('/paying', {
                 params: {params: filter}
             })
                 .then(function(res) {
@@ -29,26 +29,26 @@ export const usePayStore = defineStore('payStore', {
                 })
         },
         async GET_PAYS_SYNC(filter) {
-            return await useNuxtApp().$axios.get('/api/paying', {
+            return await useNuxtApp().$axios.get('/paying', {
                 params: {params: filter}
             })
         },
         async SAVE_PAYS(data){
-            return await useNuxtApp().$axios.post('/api/auth/paying', data)
+            return await useNuxtApp().$axios.post('/auth/paying', data)
 
         },
 
         async GET_PAYS_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/auth/paying/${id}`)
+            return await useNuxtApp().$axios.get(`/auth/paying/${id}`)
         },
 
         async UPDATE_PAYS(data){
-            return await useNuxtApp().$axios.put(`/api/auth/paying/${data.id}`, data)
+            return await useNuxtApp().$axios.put(`/auth/paying/${data.id}`, data)
 
         },
 
         async DELETE_PAYS(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/paying/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/paying/${id}`)
         },
     },
 });

@@ -3,7 +3,8 @@ import axios from 'axios';
 export default defineNuxtPlugin(async () => {
     const router = useRouter();
     const api = axios.create({
-        baseURL: 'http://localhost:8000',
+        // baseURL: 'http://localhost:8000',
+        baseURL: 'api',
         withCredentials: true,
         withXSRFToken: true,
     });

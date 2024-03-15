@@ -16,7 +16,7 @@ export const useComboStore = defineStore('comboStore', {
     actions: {
         async GET_COMBO() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/combo')
+            await useNuxtApp().$axios.get('/combo')
                 .then(function(res) {
                   vm.combo = res.data;
                 })
@@ -40,12 +40,12 @@ export const useComboStore = defineStore('comboStore', {
                 // Добавляем строку JSON в форму с помощью метода append()
                 form.append('services[]', jsonData);
             }
-            return await useNuxtApp().$axios.post('/api/auth/combo', form)
+            return await useNuxtApp().$axios.post('/auth/combo', form)
 
         },
 
         async GET_COMBO_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/combo/${id}`)
+            return await useNuxtApp().$axios.get(`/combo/${id}`)
         },
 
         async UPDATE_COMBO({data, file}){
@@ -64,12 +64,12 @@ export const useComboStore = defineStore('comboStore', {
                 // Добавляем строку JSON в форму с помощью метода append()
                 form.append('services[]', jsonData);
             }
-            return await useNuxtApp().$axios.post(`/api/auth/combo/edit/${data.id}`, form)
+            return await useNuxtApp().$axios.post(`/auth/combo/edit/${data.id}`, form)
 
         },
 
         async DELETE_COMBO(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/combo/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/combo/${id}`)
         },
     },
 });

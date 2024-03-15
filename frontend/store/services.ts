@@ -16,7 +16,7 @@ export const useServicesStore = defineStore('servicesStore', {
     actions: {
         async GET_SERVICES() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/services')
+            await useNuxtApp().$axios.get('/services')
                 .then(function(res) {
                   vm.services = res.data;
                 })
@@ -33,12 +33,12 @@ export const useServicesStore = defineStore('servicesStore', {
             form.append('form', data.form);
             form.append('preview', data.preview);
             form.append('duration', data.duration);
-            return await useNuxtApp().$axios.post('/api/auth/services', form)
+            return await useNuxtApp().$axios.post('/auth/services', form)
 
         },
 
         async GET_SERVICE_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/services/${id}`)
+            return await useNuxtApp().$axios.get(`/services/${id}`)
         },
 
         async UPDATE_SERVICE({data, file}){
@@ -50,12 +50,12 @@ export const useServicesStore = defineStore('servicesStore', {
             form.append('form', data.form);
             form.append('preview', data.preview);
             form.append('duration', data.duration);
-            return await useNuxtApp().$axios.post(`/api/auth/services/edit/${data.id}`, form)
+            return await useNuxtApp().$axios.post(`/auth/services/edit/${data.id}`, form)
 
         },
 
         async DELETE_SERVICE(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/services/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/services/${id}`)
         },
     },
 });

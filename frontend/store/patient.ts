@@ -16,7 +16,7 @@ export const usePatientStore = defineStore('patientStore', {
     actions: {
         async GET_PATIENTS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/auth/patients')
+            await useNuxtApp().$axios.get('/auth/patients')
                 .then(function(res) {
                   vm.patients = res.data;
                 })
@@ -37,23 +37,23 @@ export const usePatientStore = defineStore('patientStore', {
             if (data.products) {
                 form.append('products', JSON.stringify(data.products));
             }
-            return await useNuxtApp().$axios.post('/api/patients', form)
+            return await useNuxtApp().$axios.post('/patients', form)
         },
 
         async GET_PATIENT_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/patients/${id}`)
+            return await useNuxtApp().$axios.get(`/patients/${id}`)
         },
 
         async UPDATE_PATIENT(data){
-            return await useNuxtApp().$axios.put(`/api/auth/patients/${data.id}`, data)
+            return await useNuxtApp().$axios.put(`/auth/patients/${data.id}`, data)
         },
 
         async DELETE_PATIENT(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/patients/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/patients/${id}`)
         },
 
         async GET_PATIENT_ITEM_FOR_USER(id){
-            return await useNuxtApp().$axios.get(`/api/patients/user/${id}`)
+            return await useNuxtApp().$axios.get(`/patients/user/${id}`)
         }
     },
 });

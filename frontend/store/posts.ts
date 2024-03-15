@@ -16,7 +16,7 @@ export const usePostStore = defineStore('postStore', {
     actions: {
         async GET_POSTS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/posts')
+            await useNuxtApp().$axios.get('/posts')
                 .then(function(res) {
                   vm.posts = res.data;
                 })
@@ -30,12 +30,12 @@ export const usePostStore = defineStore('postStore', {
             form.append('title', data.title);
             form.append('text', data.text);
             form.append('preview', data.preview);
-            return await useNuxtApp().$axios.post('/api/auth/posts', form)
+            return await useNuxtApp().$axios.post('/auth/posts', form)
 
         },
 
         async GET_POST_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/posts/${id}`)
+            return await useNuxtApp().$axios.get(`/posts/${id}`)
         },
 
         async UPDATE_POST({data, file}){
@@ -44,12 +44,12 @@ export const usePostStore = defineStore('postStore', {
             form.append('title', data.title);
             form.append('text', data.text);
             form.append('preview', data.preview);
-            return await useNuxtApp().$axios.post(`/api/auth/posts/edit/${data.id}`, form)
+            return await useNuxtApp().$axios.post(`/auth/posts/edit/${data.id}`, form)
 
         },
 
         async DELETE_POST(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/posts/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/posts/${id}`)
         },
     },
 });

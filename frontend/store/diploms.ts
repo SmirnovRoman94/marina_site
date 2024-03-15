@@ -16,7 +16,7 @@ export const useDiplomsStore = defineStore('diplomsStore', {
     actions: {
         async GET_DIPLOMS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/diploms')
+            await useNuxtApp().$axios.get('/diploms')
                 .then(function(res) {
                   vm.diploms = res.data;
                 })
@@ -28,24 +28,24 @@ export const useDiplomsStore = defineStore('diplomsStore', {
             let form = new FormData();
             form.append('img', file);
             form.append('title', data.title);
-            return await useNuxtApp().$axios.post('/api/auth/diploms', form)
+            return await useNuxtApp().$axios.post('/auth/diploms', form)
 
         },
 
         async GET_DIPLOM_ITEM(id) {
-            return await useNuxtApp().$axios.get(`/api/diploms/${id}`)
+            return await useNuxtApp().$axios.get(`/diploms/${id}`)
         },
 
         async UPDATE_DIPLOM({data, file}){
             let form = new FormData();
             form.append('img', file);
             form.append('title', data.title);
-            return await useNuxtApp().$axios.post(`/api/auth/diploms/edit/${data.id}`, form)
+            return await useNuxtApp().$axios.post(`/auth/diploms/edit/${data.id}`, form)
 
         },
 
         async DELETE_DIPLOM(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/diploms/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/diploms/${id}`)
         },
     },
 });

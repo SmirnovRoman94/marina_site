@@ -16,7 +16,7 @@ export const useCommentStore = defineStore('commentStore', {
     actions: {
         async GET_COMMENTS() {
             let vm = this;
-            await useNuxtApp().$axios.get('/api/comments')
+            await useNuxtApp().$axios.get('/comments')
                 .then(function(res) {
                   vm.comments = res.data;
                 })
@@ -25,12 +25,12 @@ export const useCommentStore = defineStore('commentStore', {
                 })
         },
         async SAVE_COMMENT(data){
-            return await useNuxtApp().$axios.post('/api/auth/comments', data)
+            return await useNuxtApp().$axios.post('/auth/comments', data)
 
         },
 
         async DELETE_COMMENT(id){
-            return await useNuxtApp().$axios.delete(`/api/auth/comments/${id}`)
+            return await useNuxtApp().$axios.delete(`/auth/comments/${id}`)
         },
     },
 });
