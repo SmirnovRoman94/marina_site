@@ -11,7 +11,7 @@ class FileController extends Controller
     static public function index(Request $request)
     {
         $name = $request->input('name');
-        $path = Storage::disk('public')->path("cheks/$name");
+        $path = Storage::disk('public')->path("checks/$name");
         return response()->file($path);
     }
 }

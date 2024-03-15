@@ -152,10 +152,11 @@ class PatientController extends Controller
         if ($request->hasFile('file_check')) {
             $file = $request->file('file_check');
             $fileName = $request->file('file_check')->getClientOriginalName();
-            $file->store('cheks', 'public');
+            $file->store('/public/checks');
+            $name = $file->hashName();
 
             Event::dispatch(new SendMailAdminEvent($user ,$file, $itemsServices));
-            Handler::sendNewOrder($fileName, $patient);
+            Handler::sendNewOrder($name,$patient);
         }
 
         $patientItem = new PatientResource($patient);
