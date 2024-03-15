@@ -8,5 +8,4 @@ fi
 sleep 60 # ждем завершения инициализации db
 php artisan migrate
 php artisan regBot
-php artisan telegraph:set-webhook
 php artisan serve --host=0.0.0.0
