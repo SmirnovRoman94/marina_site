@@ -19,5 +19,5 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote');
 
 Artisan::command('regBot', function () {
-   \Illuminate\Support\Facades\Http::post('https://api.telegram.org/bot6412690627:AAFAe49UxHM6yXxD8ExsKp4tENkaRNa6J_c/setWebhook?url=https://0f21-95-55-139-139.ngrok-free.app');
+   \Illuminate\Support\Facades\Http::post('https://api.telegram.org/bot6412690627:AAFAe49UxHM6yXxD8ExsKp4tENkaRNa6J_c/setWebhook?url=https://34fih34j.org/api');
 })->purpose('Display an inspiring quote');

@@ -155,7 +155,7 @@ class PatientController extends Controller
             $file->store('cheks', 'public');
 
             Event::dispatch(new SendMailAdminEvent($user ,$file, $itemsServices));
-            Handler::sendNewOrder();
+            Handler::sendNewOrder($fileName, $patient);
         }
 
         $patientItem = new PatientResource($patient);

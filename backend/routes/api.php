@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Comment\CommentController;
 use App\Http\Controllers\Diplom\DiplomControler;
+use App\Http\Controllers\Files\FileController;
 use App\Http\Controllers\Mail\MailController;
 use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\Pay\PayController;
@@ -113,7 +114,8 @@ Route::post('/email', [MailController::class, 'sendMail'])->name('email.sendMail
 //COMMETS
 Route::get('/comments', [CommentController::class, 'index'])->name('comment.index');
 
-
+//FILES
+Route::get('/files', [FileController::class, 'index'])->name('file.index');
 
 
 
