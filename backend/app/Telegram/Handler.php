@@ -7,6 +7,7 @@ use DefStudio\Telegraph\Facades\Telegraph;
 use DefStudio\Telegraph\Handlers\WebhookHandler;
 use DefStudio\Telegraph\Keyboard\Button;
 use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class Handler extends WebhookHandler
@@ -18,7 +19,8 @@ class Handler extends WebhookHandler
 
     static public function sendNewOrder($file, $patient)
     {
-        $url = FileController::index($file);
+        $request = new Request(['name' => $file]);
+        $url = FileController::index($request);
         Telegraph::message("Новый Заказ")
             ->keyboard(Keyboard::make()->buttons([
                 Button::make("👌Оплата прошла")->action("sendPay"),
@@ -35,3 +37,4 @@ class Handler extends WebhookHandler
     {
         $this->reply('Спасибо, оплата НЕ прошла');
     }
+}

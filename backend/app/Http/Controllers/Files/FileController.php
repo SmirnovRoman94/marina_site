@@ -8,8 +8,9 @@ use Illuminate\Support\Facades\Storage;
 
 class FileController extends Controller
 {
-    static public function index($name)
+    static public function index(Request $request)
     {
+        $name = $request->input('name');
         $path = Storage::disk('public')->path("cheks/$name");
         return response()->file($path);
     }
