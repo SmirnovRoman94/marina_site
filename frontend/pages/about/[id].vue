@@ -97,6 +97,9 @@ function addServise(){
 </script>
 
 <style scoped>
+.v-container{
+  max-width: 1200px !important;
+}
 .content{
   margin-top: -20px;
   border-radius: 14px;
