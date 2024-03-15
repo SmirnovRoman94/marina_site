@@ -4,7 +4,7 @@ export default defineNuxtPlugin(async () => {
     const router = useRouter();
     const api = axios.create({
         // baseURL: 'http://localhost:8000/api',
-        baseURL: 'api',
+        baseURL: 'https://34fih34j.org/api',
         withCredentials: true,
         withXSRFToken: true,
     });
@@ -26,7 +26,7 @@ export default defineNuxtPlugin(async () => {
     },  function (error)  {
         console.log(error.response)
         if(error.response.data.message === 'Token has expired'){
-            axios.post('http://localhost:8000/api/auth/refresh', {}, {
+            axios.post('api/auth/refresh', {}, {
                 headers: {
                     'authorization': `Bearer ${localStorage.access_token}`
                 }

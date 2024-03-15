@@ -74,7 +74,7 @@
             <h1 style="float: left">Уважаемый(-ая), {{$name}}</h1>
         </div>
         <div style="width: 30%">
-            <img src="https://34fih34j.org/_nuxt/assets/image/klen.png" height="100" width="100" style="float: right;  margin-left:20%; transform: rotate(20deg); padding-top: 20px"/>
+            <img src="https://34fih34j.org/_nuxt/assets/image/kle.png" height="100" width="100" style="float: right;  margin-left:20%; transform: rotate(0deg); padding-top: 20px"/>
         </div>
     </div>
     <p>Я хотела бы выразить искреннюю благодарность за то, что выбрали меня в качестве вашего психолога. Ваше доверие и предпочтение означают много для меня, и я ценю возможность работать с вами.</p>
