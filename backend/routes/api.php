@@ -110,9 +110,9 @@ Route::get('/comments', [CommentController::class, 'index'])->name('comment.inde
 Route::get('/files', [FileController::class, 'index'])->name('file.index');
 
 
-Route::post('login', [\App\Http\Controllers\AuthController::class, 'login']);
-Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout']);
-Route::post('refresh', [\App\Http\Controllers\AuthController::class, 'refresh']);
-Route::post('me', [\App\Http\Controllers\AuthController::class, 'me']);
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
+Route::post('/refresh', [\App\Http\Controllers\AuthController::class, 'refresh']);
+Route::post('/me', [\App\Http\Controllers\AuthController::class, 'me']);
 
 
