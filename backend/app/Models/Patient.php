@@ -31,4 +31,8 @@ class Patient extends Model
         return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Product');
     }
 
+    public function checks()
+    {
+        return $this->hasMany(Check::class);
+    }
 }

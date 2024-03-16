@@ -9,14 +9,10 @@ use App\Http\Controllers\Patient\PatientController;
 use App\Http\Controllers\Pay\PayController;
 use App\Http\Controllers\Post\PostController;
 use App\Http\Controllers\Product\ProductController;
-use App\Http\Controllers\ProductCard\ProductCardController;
 use App\Http\Controllers\Service\ServiceController;
 use App\Http\Controllers\Service_combo\Service_comboController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use \App\Models\User;
-use \Nette\Schema\ValidationException;
-/*
+/*x
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
@@ -116,7 +112,6 @@ Route::get('/comments', [CommentController::class, 'index'])->name('comment.inde
 
 //FILES
 Route::get('/files', [FileController::class, 'index'])->name('file.index');
-
 
 
 

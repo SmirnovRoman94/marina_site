@@ -154,7 +154,7 @@ class PatientController extends Controller
             $fileName = $request->file('file_check')->getClientOriginalName();
             $file->store('/public/checks');
             $name = $file->hashName();
-
+            dd($name);
             Event::dispatch(new SendMailAdminEvent($user ,$file, $itemsServices));
             Handler::sendNewOrder($name,$patient);
         }
