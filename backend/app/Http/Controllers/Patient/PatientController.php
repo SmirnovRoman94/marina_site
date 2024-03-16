@@ -151,7 +151,6 @@ class PatientController extends Controller
         $user = User::findOrFail($data['user_id']);
         if ($request->hasFile('file_check')) {
             $file = $request->file('file_check');
-            $fileName = $request->file('file_check')->getClientOriginalName();
             $file->store('/public/checks');
             $name = $file->hashName();
 

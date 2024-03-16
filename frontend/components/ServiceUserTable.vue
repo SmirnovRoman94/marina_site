@@ -1,7 +1,7 @@
 <template>
   <div class="item_card_text z-10">
     <h5>Ваши пакеты и услуги</h5>
-    <div v-if="userServices == null">
+    <div v-if="userServices == null || userServices === []">
       <p class="text_no_service">У Вас пока нет приобретенных пакетов и услуг</p>
     </div>
     <div v-else>

@@ -23,7 +23,7 @@ class Handler extends WebhookHandler
             ->keyboard(Keyboard::make()->buttons([
                 Button::make("👌Оплата прошла")->action("sendPay"),
                 Button::make("🤚 Оплата не прошла")->action("noSendPay"),
-            ])->chunk(1))->photo("https://34fih34j.org/api/files?name={$file}")->send();
+            ])->chunk(1))->send();
     }
 
     public function sendPay(): void
