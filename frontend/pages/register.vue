@@ -15,7 +15,7 @@
             required
         ></v-text-field>
         <v-text-field
-            v-model="user.patromic"
+            v-model="user.patronomic"
             placeholder="Ваше отчество"
             :rules="patromicRules"
             required
@@ -55,7 +55,7 @@ const confirmPassword = ref('');
 const user = reactive({
   name: '',
   surname: '',
-  patromic: '',
+  patronomic: '',
   email: '',
   password: ''
 });
