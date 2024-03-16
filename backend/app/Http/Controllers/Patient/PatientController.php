@@ -176,7 +176,9 @@ class PatientController extends Controller
     public function patientUser(int $id)
     {
         $patient = Patient::where('user_id', $id)->first();
-
+        if (!$patient) {
+            return response()->json(['mess' => 1, 'data' => []]);
+        }
         $servicesIDs = $patient->services->pluck('item_id');
         $services = Service::whereIn('id', $servicesIDs)->get();
         $servicesRes = ServiceResource::collection($services);
