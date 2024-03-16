@@ -10,12 +10,7 @@ class Patient extends Model
 {
     use HasFactory;
     protected $guarded = false;
-
-    protected $with = [
-      'user',
-
-    ];
-
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
