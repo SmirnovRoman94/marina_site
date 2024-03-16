@@ -24,7 +24,7 @@ class AuthStoreRequest extends FormRequest
         return [
             'name' => 'required|string|min:3',
             'surname' => 'required|string|min:3',
-            'patromic' => 'required|string|min:3',
+            'patronomic' => 'required|string|min:3',
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|min:8'
         ];
