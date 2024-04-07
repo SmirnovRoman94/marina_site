@@ -11,24 +11,6 @@ services:
     volumes:
       - /var/lib/mysql
       - ./backup:/backup
-  backup:
-    image: mysql:latest
-    volumes:
-      - ./backup.sh:/backup.sh
-      - ./backup:/backup
-    entrypoint: /bin/bash
-    command: /backup.sh
-    depends_on:
-      - mysql
-  restore:
-    image: mysql:latest
-    volumes:
-      - ./restore.sh:/restore.sh
-      - ./backup:/backup
-    entrypoint: /bin/bash
-    command: /restore.sh
-    depends_on:
-      - backup
   phpmyadmin:
     platform: linux/amd64
     image: phpmyadmin/phpmyadmin
