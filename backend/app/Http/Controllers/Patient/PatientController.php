@@ -15,10 +15,7 @@ use App\Models\Product;
 use App\Models\Service;
 use App\Models\Service_combo;
 use App\Models\User;
-use App\Telegram\Handler;
-use DefStudio\Telegraph\Facades\Telegraph;
-use DefStudio\Telegraph\Keyboard\Button;
-use DefStudio\Telegraph\Keyboard\Keyboard;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 
@@ -149,14 +146,18 @@ class PatientController extends Controller
         }
 
         $user = User::findOrFail($data['user_id']);
-        if ($request->hasFile('file_check')) {
-            $file = $request->file('file_check');
-            $file->store('/public/checks');
-            $name = $file->hashName();
 
-            Event::dispatch(new SendMailAdminEvent($user ,$file, $itemsServices));
-            Handler::sendNewOrder($name,$patient);
-        }
+        $patientService = PatientService::where('patient_id', $patient->id)->first();
+        Event::dispatch(new SendMailAdminEvent($user, $itemsServices));
+
+//        if ($request->hasFile('file_check')) {
+//            $patientService = PatientService::where('patient_id', $patient->id)->first();
+//            $imagePath = $request->file('file_check')->path();
+//            $patientService->addMedia($imagePath)->toMediaCollection('checks');
+//
+//
+//            Event::dispatch(new SendMailAdminEvent($user, $itemsServices));
+//        }
 
         $patientItem = new PatientResource($patient);
 
@@ -176,7 +177,7 @@ class PatientController extends Controller
     {
         $patient = Patient::where('user_id', $id)->first();
         if (!$patient) {
-            return response()->json(['mess' => 1, 'data' => []]);
+            return response()->json(['mess' => 1, 'data' => null]);
         }
         $servicesIDs = $patient->services->pluck('item_id');
         $services = Service::whereIn('id', $servicesIDs)->get();
@@ -189,7 +190,6 @@ class PatientController extends Controller
         $productsIDs = $patient->products->pluck('item_id');
         $products = Product::whereIn('id', $productsIDs)->get();
         $productsRes = ProductResource::collection($products);
-
 
         $result = $servicesRes->concat($combosRes)->concat($productsRes);
 

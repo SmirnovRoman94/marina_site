@@ -18,6 +18,3 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('regBot', function () {
-   \Illuminate\Support\Facades\Http::post('https://api.telegram.org/bot7014411218:AAFJc76pA5GILLAyTHz19EVhKWLn8MNp-mQ/setWebhook?url=https://34fih34j.org/api');
-})->purpose('Display an inspiring quote');

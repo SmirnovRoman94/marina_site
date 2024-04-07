@@ -1,7 +1,7 @@
 <template>
   <div class="item_card_text z-10">
     <h5>Ваши пакеты и услуги</h5>
-    <div v-if="userServices == null || userServices === []">
+    <div v-if="userServices == null || userServices.length == 0">
       <p class="text_no_service">У Вас пока нет приобретенных пакетов и услуг</p>
     </div>
     <div v-else>
@@ -34,7 +34,8 @@
             {{el.item.title}}
           </div>
           <div class="w-1/4 text-center pl-2">
-            <v-text-field v-model="el.count" variant="underlined" density="compact" hide-details type="number"></v-text-field>
+            <v-text-field v-model="el.count" variant="underlined" density="compact" hide-details type="number"
+           ></v-text-field>
           </div>
           <div class="w-1/4 flex justify-end pr-2">
             <v-btn icon="mdi-delete-outline" color="red-lighten-2" height="24" width="24" variant="text" @click.stop="deleteItem(el, index)">
@@ -66,16 +67,15 @@ const patientStore = usePatientStore();
 
 const services = ref([]);
 
-const summ = computed(() => {
+const  summ = computed(() => {
   let res = 0;
   services.value.forEach(el => {
-    res = res+el.item.price;
+    res = res+(el.item.price*el.count);
   });
   return res;
 });
 
 const serviceLengt = computed(() => {
-  console.log(services.value.length);
   return services.value.length;
 })
 
@@ -102,14 +102,12 @@ function byServices(){
   dialog_pay.value = true;
 }
 
-const file = ref(null);
 
 function resultPay(item){
   console.log(item);
   if(item !== null){
-    file.value = item;
     dialog_pay.value = false;
-    sendPay();
+    sendPay({...item, email: USER.value.email});
   }else{
     dialog_pay.value = false;
   }
@@ -133,19 +131,19 @@ function getServicePatient(id){
       .catch(() => snackbar.add({type: 'error', text: 'Произошла внутренняя ошибка' }))
 }
 
-async function sendPay(){
+async function sendPay(item){
   let Service_combo = service_combo();
   let service = services_func();
   let product = products();
   await patientStore.SAVE_PATIENT({
-    data: {user_id: USER.value.id, service_combo: Service_combo, services: service, products: product},
-    file: file.value ?? null
+    data: {user_id: USER.value.id, service_combo: Service_combo, services: service, products: product, form: item}
   })
       .then(res => {
         if(res.data.mess === 1){
           localStorage.clear('services');
           getServicePatient(USER.value.id);
           services.value = [];
+          dialog_pay.value = false;
         }
       })
 }

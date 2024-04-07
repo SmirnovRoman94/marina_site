@@ -19,20 +19,32 @@
       <div class="mt-3 pb-4">
         <div class="flex justify-space-between">
           <p class="marck-script-regular text-[#C58A46] text-sm">Название банка</p>
-          <p class="font-light">{{PAYS.name_bank}}</p>
+          <p class="font-light">{{PAYS?.name_bank}}</p>
         </div>
         <div class="flex justify-space-between mt-3">
           <p class="marck-script-regular text-[#C58A46] text-sm">Номер карты</p>
-          <p class="font-light">{{PAYS.number}}</p>
+          <p class="font-light">{{PAYS?.number}}</p>
         </div>
         <div class="flex justify-space-between mt-3">
           <p class="marck-script-regular text-[#C58A46] text-sm">ФИО получателя</p>
-          <p class="font-light">{{PAYS.surname}} {{PAYS.name}} {{PAYS.patromic}}</p>
+          <p class="font-light">{{PAYS?.surname}} {{PAYS?.name}} {{PAYS?.patromic}}</p>
         </div>
       </div>
       <hr>
       <v-form @submit.prevent="addPay" ref="form" class="mt-1">
-        <v-file-input v-model="file" variant="underlined" placeholder="Прикрепить чек" :rules="[(v) => !!v || 'Поле Чек об оплате обязательно для заполнения']"/>
+        <h4>Выберите один из вариантов</h4>
+        <v-checkbox
+            v-model="formPay.stchet"
+            color="primary"
+            label="Необходимо получить счет на оплату"
+            hide-details
+        ></v-checkbox>
+        <v-checkbox
+            v-model="formPay.check"
+            color="primary"
+            label="Необходимо получить чек об оплате"
+            hide-details
+        ></v-checkbox>
         <div class="mt-5 flex justify-end">
           <v-btn type="submit" class="ma-2 mr-2" variant="text">Отправить</v-btn>
           <v-btn @click="close" class="ma-2 mr-2" variant="text">Закрыть</v-btn>
@@ -61,16 +73,18 @@ function close(){
   emits('update:open', false);
 }
 
-const file = ref(null);
+const formPay = reactive({
+  stchet: false,
+  check: false,
+  email: null
+})
 
-const form = ref(null);
 
 async function addPay(){
-  const { valid } = await form.value.validate();
-  if(valid){
-    emits('result', file.value[0]);
+  if(!formPay.stchet && !formPay.check){
+    snackbar.add({type: 'warning', text: 'Необходимо выбрать хоть один из вариантов' });
   }else{
-    snackbar.add({type: 'warning', text: 'Необходимо добавить чек об оплате' });
+    emits('result', formPay);
   }
 }
 

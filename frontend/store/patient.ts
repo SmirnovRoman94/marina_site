@@ -26,8 +26,8 @@ export const usePatientStore = defineStore('patientStore', {
         },
         async SAVE_PATIENT({data, file}){
             let form = new FormData();
-            form.append('file_check', file);
             form.append('user_id', data.user_id);
+            form.append('form', data.form);
             if (data.service_combo) {
                 form.append('service_combo', JSON.stringify(data.service_combo));
             }

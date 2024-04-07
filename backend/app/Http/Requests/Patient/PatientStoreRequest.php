@@ -23,12 +23,12 @@ class PatientStoreRequest extends FormRequest
     {
         return [
             'user_id' => 'required|integer|exists:users,id',
+            'form' => 'required',
             'diagnosis' => 'nullable|string',
             'comments' => 'nullable|string',
             'products' => 'nullable|string',
             'services' => 'nullable|string',
             'service_combo' => 'nullable|string',
-            'file_check' => 'nullable|file|image',
         ];
     }
 

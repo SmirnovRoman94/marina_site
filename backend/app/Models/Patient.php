@@ -10,7 +10,7 @@ class Patient extends Model
 {
     use HasFactory;
     protected $guarded = false;
-    
+
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
@@ -18,21 +18,16 @@ class Patient extends Model
 
     public function services()
     {
-        return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Service');
+        return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Service')->where('public', true);
     }
 
     public function serviceCombos()
     {
-        return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Service_combo');
+        return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Service_combo')->where('public', true);
     }
 
     public function products()
     {
-        return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Product');
-    }
-
-    public function checks()
-    {
-        return $this->hasMany(Check::class);
+        return $this->hasMany(PatientService::class, 'patient_id')->where('item_type', 'Product')->where('public', true);
     }
 }

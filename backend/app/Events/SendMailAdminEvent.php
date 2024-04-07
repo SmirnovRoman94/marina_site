@@ -14,10 +14,9 @@ class SendMailAdminEvent
     public $servicesItems;
 
 
-    public function __construct(User $user, string $file, array $servicesItems)
+    public function __construct(User $user, array $servicesItems)
     {
         $this->user = $user;
-        $this->file = $file;
         $this->servicesItems = $servicesItems;
     }
 

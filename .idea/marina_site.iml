@@ -133,8 +133,6 @@
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/barryvdh/laravel-translation-manager" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/spatie/laravel-medialibrary" />
       <excludeFolder url="file://$MODULE_DIR$/backend/vendor/lcobucci/clock" />
-      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/defstudio/telegraph" />
-      <excludeFolder url="file://$MODULE_DIR$/backend/vendor/spatie/laravel-package-tools" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
