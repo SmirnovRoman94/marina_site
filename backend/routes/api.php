@@ -109,6 +109,9 @@ Route::get('/comments', [CommentController::class, 'index'])->name('comment.inde
 //FILES
 Route::get('/files', [FileController::class, 'index'])->name('file.index');
 
+Route::get('/qwas', function (){
+    return 'asaas';
+});
 
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
 Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
